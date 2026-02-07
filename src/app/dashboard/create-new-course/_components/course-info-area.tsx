@@ -3,6 +3,20 @@
 import { useState } from "react";
 import Image from "next/image";
 import { InfoTwoSvg, PenThreeSvg, SettingTwoSvg } from "@/components/svg";
+const getTodayDate = () => {
+  const d = new Date();
+
+  const day = String(d.getDate()).padStart(2, "0");
+  const monthNames = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+  const month = monthNames[d.getMonth()];
+  const year = d.getFullYear();
+
+  return `${day} ${month} ${year}`;   // → "06 Feb 2026"
+};
+
 
 type RentalForm = {
   from: string;
@@ -20,7 +34,7 @@ export default function CourseInfoArea() {
   const [form, setForm] = useState<RentalForm>({
     from: "legendary",
     to: "",
-    date: "",
+    date: getTodayDate(),
     plate: "",
     model: "",
     period: "",
@@ -77,8 +91,17 @@ export default function CourseInfoArea() {
           {/* LEFT BOX */}
           <div className="tpd-new-course-box-1">
             <div className="tpd-input">
-              <label>From</label>
+              <label>From</label><br></br>
               <select
+                style={{
+                  width: "50%",
+                  padding: "8px 10px",
+                  borderRadius: "6px",
+                  border: "1px solid #ddd",
+                  backgroundColor: "#fff",
+                  fontSize: "14px",
+                  cursor: "pointer",
+                }}
                 name="from"
                 value={form.from}
                 onChange={handleChange}
@@ -90,17 +113,24 @@ export default function CourseInfoArea() {
 
             <div className="tpd-input">
               <label>TO:</label>
-              <input name="to" value={form.to} onChange={handleChange} />
+              <input type="text"name="to" value={form.to} onChange={handleChange} />
             </div>
 
             <div className="tpd-input">
               <label>Date</label>
-              <input name="date" value={form.date} onChange={handleChange} />
+              <input 
+                type="text"
+                name="date"
+                value={form.date}
+                onChange={handleChange} 
+                placeholder="06 Feb 2026"
+              />
             </div>
 
             <div className="tpd-input">
               <label>Vehicle</label>
               <input
+                type="text"
                 name="vehicle"
                 value={form.vehicle}
                 onChange={handleChange}
@@ -121,6 +151,7 @@ export default function CourseInfoArea() {
             <div className="tpd-input">
               <label>Plate Number</label>
               <input
+                type="text"
                 name="plate"
                 value={form.plate}
                 onChange={handleChange}
@@ -136,6 +167,7 @@ export default function CourseInfoArea() {
             <div className="tpd-input">
               <label>Model</label>
               <input
+                type="text"
                 name="model"
                 value={form.model}
                 onChange={handleChange}
@@ -145,6 +177,7 @@ export default function CourseInfoArea() {
             <div className="tpd-input">
               <label>Rental Period (Days)</label>
               <input
+                type="text"
                 name="period"
                 value={form.period}
                 onChange={handleChange}
@@ -154,6 +187,7 @@ export default function CourseInfoArea() {
             <div className="tpd-input">
               <label>Rate (AED / Day)</label>
               <input
+                type="text"
                 placeholder="  Only write a amount value"
                 name="rate"
                 value={form.rate}
@@ -164,6 +198,7 @@ export default function CourseInfoArea() {
             <div className="tpd-input">
               <label>Including or Plus</label>
               <input
+                type="text"
                 name="IncluPlus"
                 value={form.IncluPlus}
                 onChange={handleChange}
